@@ -6,6 +6,8 @@ services:
         container_name: php
         volumes_from:
             - source
+        environment:
+              PHP_IDE_CONFIG: "serverName=Docker"
         ports:
             - '${INTERFACE}:9000:9000'
         links:
@@ -66,7 +68,19 @@ services:
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
-            - /etc/localtime:/etc/localtime/:ro
+            - ${SITE_PATH2}:/var/www/bitrix2
+        networks:
+            - bitrix
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links: 
+            - mysql:db
+        ports:
+            - 8000:80
+        environment:
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
         networks:
             - bitrix
 networks:
