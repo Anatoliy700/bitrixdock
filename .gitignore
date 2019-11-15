@@ -1,3 +1,5 @@
 /.idea
 /logs
 /data
+docker-compose.override.yml
+/www/html/qsoft
