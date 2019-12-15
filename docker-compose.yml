@@ -28,7 +28,7 @@ services:
             - '${INTERFACE}:443:443'
         links:
             - php
-        networks: 
+        networks:
             - bitrix
         restart: always
     mysql:
@@ -64,7 +64,7 @@ services:
             - ./logs/php:/var/log/php
             - ./logs/mysql:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
-            - ./data/mysql:/var/lib/mysql
+            - ${DB_PATH}:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
@@ -73,14 +73,14 @@ services:
             - bitrix
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        links: 
+        links:
             - mysql:db
         ports:
             - 8000:80
         environment:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - bitrix
 networks:
