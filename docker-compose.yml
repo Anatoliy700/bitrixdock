@@ -7,7 +7,8 @@ services:
         volumes_from:
             - source
         environment:
-              PHP_IDE_CONFIG: "serverName=Docker"
+              PHP_IDE_CONFIG: serverName=docker.self
+              XDEBUG_CONFIG: idekey=xdebug
         ports:
             - '${INTERFACE}:9000:9000'
         links:
@@ -15,7 +16,7 @@ services:
             - memcached
         networks:
             - bitrix
-        restart: always
+#        restart: always
     web_server:
         build: ./${WEB_SERVER_TYPE}
         container_name: webserver
@@ -30,7 +31,7 @@ services:
             - php
         networks:
             - bitrix
-        restart: always
+#        restart: always
     mysql:
         build: ./mysql
         container_name: mysql
@@ -45,7 +46,7 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - bitrix
-        restart: always
+#        restart: always
     memcached:
         image: memcached:1.5-alpine
         container_name: memcached
@@ -55,7 +56,7 @@ services:
             - '${INTERFACE}:11211:11211'
         networks:
             - bitrix
-        restart: always
+#        restart: always
     source:
         image: alpine:latest
         container_name: source
@@ -69,6 +70,8 @@ services:
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
             - ${SITE_PATH2}:/var/www/bitrix2
+            - ./data/temp:/var/temp
+            - ./php7/php.ini:/etc/php/7.1/fpm/conf.d/90-php.ini
         networks:
             - bitrix
     phpmyadmin:
