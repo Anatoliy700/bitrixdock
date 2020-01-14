@@ -71,7 +71,9 @@ services:
             - ${SITE_PATH}:/var/www/bitrix
             - ${SITE_PATH2}:/var/www/bitrix2
             - ./data/temp:/var/temp
-            - ./php7/php.ini:/etc/php/7.1/fpm/conf.d/90-php.ini
+            - ../aditional_files/config:/var/www/config
+            - ../aditional_files/logs:/var/www/logs
+#            - ./php71/php.ini:/etc/php/7.1/fpm/conf.d/90-php.ini
         networks:
             - bitrix
     phpmyadmin:
