@@ -8,7 +8,7 @@ services:
             - source
         environment:
               PHP_IDE_CONFIG: serverName=docker.self
-#              XDEBUG_CONFIG: idekey=xdebug
+              XDEBUG_CONFIG: idekey=xdebug
         ports:
             - '${INTERFACE}:9000:9000'
         links:
@@ -16,7 +16,7 @@ services:
             - memcached
         networks:
             - bitrix
-#        restart: always
+        restart: always
     web_server:
         build: ./${WEB_SERVER_TYPE}
         container_name: webserver
@@ -31,7 +31,7 @@ services:
             - php
         networks:
             - bitrix
-#        restart: always
+        restart: always
     mysql:
         build: ./mysql
         container_name: mysql
