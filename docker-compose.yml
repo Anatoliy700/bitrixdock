@@ -11,9 +11,9 @@ services:
               XDEBUG_CONFIG: idekey=xdebug
         ports:
             - '${INTERFACE}:9000:9000'
-        links:
-            - mysql
-            - memcached
+#        links:
+#            - mysql
+#            - memcached
         networks:
             - bitrix
         restart: always
@@ -32,30 +32,30 @@ services:
         networks:
             - bitrix
         restart: always
-    mysql:
-        build: ./mysql
-        container_name: mysql
-        volumes_from:
-            - source
-        ports:
-            - '${INTERFACE}:3306:3306'
-        environment:
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        networks:
-            - bitrix
+#    mysql:
+#        build: ./mysql
+#        container_name: mysql
+#        volumes_from:
+#            - source
+#        ports:
+#            - '${INTERFACE}:3306:3306'
+#        environment:
+#            MYSQL_DATABASE: ${MYSQL_DATABASE}
+#            MYSQL_USER: ${MYSQL_USER}
+#            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#        networks:
+#            - bitrix
 #        restart: always
-    memcached:
-        image: memcached:1.5-alpine
-        container_name: memcached
-        volumes_from:
-            - source
-        ports:
-            - '${INTERFACE}:11211:11211'
-        networks:
-            - bitrix
+#    memcached:
+#        image: memcached:1.5-alpine
+#        container_name: memcached
+#        volumes_from:
+#            - source
+#        ports:
+#            - '${INTERFACE}:11211:11211'
+#        networks:
+#            - bitrix
 #        restart: always
     source:
         image: alpine:latest
@@ -75,18 +75,18 @@ services:
 #            - ./php71/php.ini:/etc/php/7.1/fpm/conf.d/90-php.ini
         networks:
             - bitrix
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links:
-            - mysql:db
-        ports:
-            - 8000:80
-        environment:
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        networks:
-            - bitrix
+#    phpmyadmin:
+#        image: phpmyadmin/phpmyadmin
+#        links:
+#            - mysql:db
+#        ports:
+#            - 8000:80
+#        environment:
+#            MYSQL_USER: ${MYSQL_USER}
+#            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#        networks:
+#            - bitrix
 networks:
     bitrix:
         driver: bridge
@@ -94,3 +94,4 @@ networks:
             driver: default
             config:
                 - subnet: 10.100.0.0/24
+                  gateway: 10.100.0.1
