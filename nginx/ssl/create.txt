@@ -1,0 +1,1 @@
+openssl req -new -x509 -days 1461 -nodes -out cert.pem -keyout cert.key -subj "/C=RU/O=Global Security/OU=IT Department/CN=docker.self/CN=docker"
