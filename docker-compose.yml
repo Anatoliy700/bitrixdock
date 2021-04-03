@@ -17,7 +17,7 @@ services:
         networks:
             - bitrix
 #        restart: always
-    web_server:
+    webserver:
         build: ./${WEB_SERVER_TYPE}
         container_name: webserver
         depends_on:
