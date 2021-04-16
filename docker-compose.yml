@@ -98,3 +98,4 @@ networks:
             driver: default
             config:
                 - subnet: 10.100.0.0/24
+                  gateway: 10.100.0.1
