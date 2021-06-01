@@ -71,6 +71,7 @@ services:
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
+            - ${SITE_PATH2}:/var/www/laravel
             - ./data/temp:/var/temp
             - ../aditional_files/config:/var/www/config
             - ../aditional_files/logs:/var/www/logs
