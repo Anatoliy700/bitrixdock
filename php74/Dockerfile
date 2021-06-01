@@ -12,7 +12,7 @@ RUN apt-get update \
     php7.4-soap \
     php7.4-gd \
     php7.4-imagick \
-    libmcrypt-dev \
+    php7.4-mcrypt \
     php7.4-opcache \
     php7.4-zip \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*

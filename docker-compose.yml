@@ -58,7 +58,7 @@ services:
             - '${INTERFACE}:11211:11211'
         networks:
             - bitrix
-#        restart: always
+        restart: always
     source:
         image: alpine:latest
         container_name: source
