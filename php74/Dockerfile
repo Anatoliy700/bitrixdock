@@ -15,6 +15,7 @@ RUN apt-get update \
     php7.4-mcrypt \
     php7.4-opcache \
     php7.4-zip \
+    php7.4-xhprof \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 MAINTAINER vitams
