@@ -8,14 +8,14 @@ services:
             - source
         volumes_from:
             - source
-        environment:
-              PHP_IDE_CONFIG: serverName=docker.self
-              XDEBUG_CONFIG: idekey=xdebug
+#        environment:
+#              PHP_IDE_CONFIG: serverName=docker.self
+#              XDEBUG_CONFIG: idekey=xdebug
         ports:
             - '${INTERFACE}:9000:9000'
-        links:
-            - mysql
-            - memcached
+#        links:
+#            - mysql
+#            - memcached
         networks:
             - bitrix
         restart: always
@@ -32,33 +32,35 @@ services:
         links:
             - php
         networks:
-            - bitrix
+            bitrix:
+                aliases:
+                  - laravel.self
         restart: always
-    mysql:
-        build: ./mysql
-        container_name: mysql
-        volumes_from:
-            - source
-        ports:
-            - '${INTERFACE}:3306:3306'
-        environment:
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        networks:
-            - bitrix
+#    mysql:
+#        build: ./mysql
+#        container_name: mysql
+#        volumes_from:
+#            - source
+#        ports:
+#            - '${INTERFACE}:3306:3306'
+#        environment:
+#            MYSQL_DATABASE: ${MYSQL_DATABASE}
+#            MYSQL_USER: ${MYSQL_USER}
+#            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#        networks:
+#            - bitrix
 #        restart: always
-    memcached:
-        image: memcached:1.5-alpine
-        container_name: memcached
-        volumes_from:
-            - source
-        ports:
-            - '${INTERFACE}:11211:11211'
-        networks:
-            - bitrix
-        restart: always
+#    memcached:
+#        image: memcached:1.5-alpine
+#        container_name: memcached
+#        volumes_from:
+#            - source
+#        ports:
+#            - '${INTERFACE}:11211:11211'
+#        networks:
+#            - bitrix
+#        restart: always
     source:
         image: alpine:latest
         container_name: source
@@ -70,8 +72,7 @@ services:
             - ${DB_PATH}:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
-            - ${SITE_PATH2}:/var/www/laravel
+            - ${SITE_PATH}:/var/www/laravel
             - ./data/temp:/var/temp
             - ../aditional_files/config:/var/www/config
             - ../aditional_files/logs:/var/www/logs
@@ -79,18 +80,18 @@ services:
             - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - bitrix
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links:
-            - mysql:db
-        ports:
-            - 8000:80
-        environment:
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        networks:
-            - bitrix
+#    phpmyadmin:
+#        image: phpmyadmin/phpmyadmin
+#        links:
+#            - mysql:db
+#        ports:
+#            - 8000:80
+#        environment:
+#            MYSQL_USER: ${MYSQL_USER}
+#            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#        networks:
+#            - bitrix
 networks:
     bitrix:
         driver: bridge
