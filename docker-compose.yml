@@ -32,7 +32,9 @@ services:
         links:
             - php
         networks:
-            - bitrix
+            bitrix:
+                aliases:
+                    - laravel.self
         restart: always
     mysql:
         build: ./mysql
@@ -70,7 +72,7 @@ services:
             - ${DB_PATH}:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
+#            - ${SITE_PATH}:/var/www/bitrix
             - ${SITE_PATH2}:/var/www/laravel
             - ./data/temp:/var/temp
             - ../aditional_files/config:/var/www/config
