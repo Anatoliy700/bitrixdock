@@ -78,6 +78,8 @@ services:
             - ../aditional_files/logs:/var/www/logs
             - ./php74/php.ini:/etc/php/7.4/fpm/conf.d/90-php.ini
             - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+            - ./data/sphinx:/opt/sphinx/index
+            - ./sphinx:/opt/sphinx/conf
         networks:
             - bitrix
 #    phpmyadmin:

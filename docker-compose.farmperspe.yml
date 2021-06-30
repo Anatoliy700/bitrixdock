@@ -1,0 +1,14 @@
+version: '2'
+services:
+  sphinx:
+    image: macbre/sphinxsearch:3.3.1
+    ports:
+      - "${INTERFACE}:36307:36307" # bind to local interface only!
+      - "${INTERFACE}:36306:36306" # bind to local interface only!
+    depends_on:
+      - source
+    volumes_from:
+      - source
+    mem_limit: 512m # match indexer.value from sphinx.conf
+    networks:
+      - bitrix
